@@ -1,3 +1,4 @@
+
 // The MIT License (MIT)
 //
 // Copyright (c) 2015 Alexander Grebenyuk (github.com/kean).
@@ -377,6 +378,7 @@ typedef NS_ENUM(NSUInteger, _DFImageTaskState) {
             }
         }
         operation.imageTasks = nil;
+        operation.operation = nil;
         [_fetchOperations removeObjectForKey:operation.key];
     });
 }
