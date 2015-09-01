@@ -44,6 +44,19 @@
     return [NSString stringWithFormat:@"<%@ %p> { priority = %i, network = %i, clip = %i, cache = %i, expires = %0.2f }", [self class], self, (int)_priority, _allowsNetworkAccess, _allowsClipping, _memoryCachePolicy == DFImageRequestCachePolicyDefault ? 1 : 0, _expirationAge];
 }
 
+- (id)mutableCopy
+{
+    DFMutableImageRequestOptions *mutableOptions = [DFMutableImageRequestOptions new];
+    mutableOptions.priority = self.priority;
+    mutableOptions.allowsNetworkAccess = self.allowsNetworkAccess;
+    mutableOptions.allowsClipping = self.allowsClipping;
+    mutableOptions.memoryCachePolicy = self.memoryCachePolicy;
+    mutableOptions.expirationAge = self.expirationAge;
+    mutableOptions.userInfo = self.userInfo;
+    
+    return mutableOptions;
+}
+
 @end
 
 
