@@ -248,7 +248,9 @@
             UIImage *processedImage = [weakSelf cachedResponseForRequest:task.request].image;
             if (!processedImage) {
                 processedImage = [processor processedImage:image forRequest:task.request];
-                [weakSelf _storeImage:processedImage info:info forRequest:task.request];
+                if (!error) {
+                    [weakSelf _storeImage:processedImage info:info forRequest:task.request];
+                }
             }
             dispatch_async(_queue, ^{
                 task.completionHandler(processedImage, info, error);
