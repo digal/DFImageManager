@@ -236,6 +236,7 @@
             [self _loadTask:task didCompleteWithImage:image info:info error:error];
         }
         [operation.tasks removeAllObjects];
+        operation.operation = nil;
         [_loadOperations removeObjectForKey:operation.key];
     });
 }
