@@ -50,6 +50,7 @@
 - (id)copyWithZone:(NSZone *)zone {
     DFImageManagerConfiguration *copy = [[DFImageManagerConfiguration alloc] initWithFetcher:self.fetcher];
     copy.cache = self.cache;
+    copy.storageCache = self.storageCache;
     copy.processor = self.processor;
     copy.processingQueue = self.processingQueue;
     copy.maximumConcurrentPreheatingRequests = self.maximumConcurrentPreheatingRequests;

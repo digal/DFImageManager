@@ -25,6 +25,7 @@
 @protocol DFImageCaching;
 @protocol DFImageFetching;
 @protocol DFImageProcessing;
+@protocol DFImageRequestCaching;
 
 /*! An DFImageManagerConfiguration object defines the behaviour and policies to use when retrieving images using DFImageManager object.
  */
@@ -46,6 +47,7 @@
   @note It's a good idea to implement DFImageProcessing and DFImageCaching in that same object.
  */
 @property (nullable, nonatomic) id<DFImageCaching> cache;
+@property (nonnull, nonatomic) id<DFImageRequestCaching> storageCache;
 
 /*! Maximum number of preheating requests that are allowed to execute concurrently.
  */

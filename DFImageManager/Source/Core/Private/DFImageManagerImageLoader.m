@@ -23,6 +23,7 @@
 #import "DFCachedImageResponse.h"
 #import "DFImageCaching.h"
 #import "DFImageFetching.h"
+#import "DFImageRequestCaching.h"
 #import "DFImageManagerDefines.h"
 #import "DFImageManagerImageLoader.h"
 #import "DFImageProcessing.h"
@@ -168,6 +169,7 @@
 @implementation DFImageManagerImageLoader {
     dispatch_queue_t _queue;
     id<DFImageFetching> _fetcher;
+    id<DFImageRequestCaching> _storageCache;
     id<DFImageCaching> _cache;
     id<DFImageProcessing> _processor;
     NSOperationQueue *_processingQueue;
@@ -175,9 +177,14 @@
     BOOL _fetcherRespondsToCanonicalRequest;
 }
 
-- (nonnull instancetype)initWithFetcher:(nonnull id<DFImageFetching>)fetcher cache:(nullable id<DFImageCaching>)cache processor:(nullable id<DFImageProcessing>)processor processingQueue:(nullable NSOperationQueue *)processingQueue {
+- (nonnull instancetype)initWithFetcher:(nonnull id<DFImageFetching>)fetcher
+                           storageCache:(nullable id<DFImageRequestCaching>)storageCache
+                                  cache:(nullable id<DFImageCaching>)cache
+                              processor:(nullable id<DFImageProcessing>)processor
+                        processingQueue:(nullable NSOperationQueue *)processingQueue {
     if (self = [super init]) {
         _fetcher = fetcher;
+        _storageCache = storageCache;
         _cache = cache;
         _processor = processor;
         _processingQueue = processingQueue;
@@ -202,11 +209,31 @@
     if (!operation) {
         operation = [[_DFImageLoadOperation alloc] initWithKey:key];
         DFImageManagerImageLoader *__weak weakSelf = self;
-        operation.operation = [_fetcher startOperationWithRequest:task.request progressHandler:^(int64_t completedUnitCount, int64_t totalUnitCount) {
-            [weakSelf _loadOperation:operation didUpdateProgressWithCompletedUnitCount:completedUnitCount totalUnitCount:totalUnitCount];
-        } completion:^(UIImage *__nullable image, NSDictionary *__nullable info, NSError *__nullable error) {
-            [weakSelf _loadOperation:operation didCompleteWithImage:image info:info error:error];
-        }];
+        DFImageRequest *request = task.request;
+        
+        void(^requestWithFetcher)() = ^() {
+            operation.operation = [_fetcher startOperationWithRequest:request progressHandler:^(int64_t completedUnitCount, int64_t totalUnitCount) {
+                [weakSelf _loadOperation:operation didUpdateProgressWithCompletedUnitCount:completedUnitCount totalUnitCount:totalUnitCount];
+            } completion:^(UIImage *__nullable image, NSDictionary *__nullable info, NSError *__nullable error) {
+                if (_storageCache && image && !error) {
+                    [_storageCache saveCachedImage:image withRequest:request];
+                }
+                [weakSelf _loadOperation:operation didCompleteWithImage:image info:info error:error];
+            }];
+        };
+        
+        if (_storageCache && request.options.storageCachePolicy != DFImageRequestCachePolicyReloadIgnoringCache) {
+            operation.operation = [_storageCache loadCachedImageWithRequest:request completion:^(UIImage *__nullable image) {
+                if (image) {
+                    [weakSelf _loadOperation:operation didCompleteWithImage:image info:nil error:nil];
+                    return;
+                }
+                requestWithFetcher();
+            }];
+        } else {
+            requestWithFetcher();
+        }
+        
         _loadOperations[key] = operation;
     } else {
         task.totalUnitCount = operation.totalUnitCount;

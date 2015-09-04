@@ -280,6 +280,7 @@
 		0CEEED231AABE4BC00C212A4 /* DFURLResponseDeserializing.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DFURLResponseDeserializing.h; sourceTree = "<group>"; };
 		0CF011841AAE1BAF0013AD13 /* DFImageManager+SharedManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "DFImageManager+SharedManager.m"; sourceTree = "<group>"; };
 		0CF0118C1AAE894E0013AD13 /* DFImageManagerKit+GIF.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "DFImageManagerKit+GIF.h"; sourceTree = "<group>"; };
+		2493B8D41B99EBE9006CA463 /* DFImageRequestCaching.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DFImageRequestCaching.h; sourceTree = "<group>"; };
 		35AEC21DD9AC0DE7AE2AB433 /* libPods-DFImageManagerTests.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-DFImageManagerTests.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		81E7E25367D979E56F0B6377 /* Pods-DFImageManagerTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-DFImageManagerTests.debug.xcconfig"; path = "../Pods/Target Support Files/Pods-DFImageManagerTests/Pods-DFImageManagerTests.debug.xcconfig"; sourceTree = "<group>"; };
 		9A1D309E5F55472432AE0B73 /* Pods-DFImageManagerTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-DFImageManagerTests.release.xcconfig"; path = "../Pods/Target Support Files/Pods-DFImageManagerTests/Pods-DFImageManagerTests.release.xcconfig"; sourceTree = "<group>"; };
@@ -401,6 +402,7 @@
 				0C44A7921AAB273F00900C6A /* DFImageFetching.h */,
 				0C44A7941AAB273F00900C6A /* DFImageManaging.h */,
 				0C44A7951AAB273F00900C6A /* DFImageProcessing.h */,
+				2493B8D41B99EBE9006CA463 /* DFImageRequestCaching.h */,
 			);
 			path = Protocols;
 			sourceTree = "<group>";

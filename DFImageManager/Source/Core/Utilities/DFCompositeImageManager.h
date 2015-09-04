@@ -48,4 +48,6 @@
  */
 - (void)removeImageManagers:(nonnull NSArray /* <DFImageManaging> */ *)imageManagers;
 
+@property (nonnull, nonatomic, readonly) NSArray *imageManagers;
+
 @end

@@ -43,6 +43,7 @@
 /*! The request cache policy used for memory caching.
  */
 @property (nonatomic, readonly) DFImageRequestCachePolicy memoryCachePolicy;
+@property (nonatomic, readonly) DFImageRequestCachePolicy storageCachePolicy;
 
 /*! The amount of time to elapse before memory-cached images associated with a request are considered to have expired.
  @warning This property doesn't affect caching implemented in a classes conforming to DFImageFetching protocol (for example, NSURLSession caching). For more info see DFImageCaching protocol and DFCachedImageResponse class.
@@ -92,6 +93,7 @@
 /*! The request cache policy used for memory caching. Default value is DFImageRequestCachePolicyDefault.
  */
 @property (nonatomic) DFImageRequestCachePolicy memoryCachePolicy;
+@property (nonatomic) DFImageRequestCachePolicy storageCachePolicy;
 
 /*! The amount of time to elapse before memory-cached images associated with a request are considered to have expired. Default value is 600.0 seconds.
  @warning This property doesn't affect caching implemented in a classes conforming to DFImageFetching protocol (for example, NSURLSession caching)! For more info see DFImageCaching protocol and DFCachedImageResponse class.

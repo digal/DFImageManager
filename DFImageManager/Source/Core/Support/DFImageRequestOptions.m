@@ -34,6 +34,7 @@
         _allowsNetworkAccess = options.allowsNetworkAccess;
         _allowsClipping = options.allowsClipping;
         _memoryCachePolicy = options.memoryCachePolicy;
+        _storageCachePolicy = options.storageCachePolicy;
         _expirationAge = options.expirationAge;
         _userInfo = options.userInfo;
     }
@@ -51,6 +52,7 @@
     mutableOptions.allowsNetworkAccess = self.allowsNetworkAccess;
     mutableOptions.allowsClipping = self.allowsClipping;
     mutableOptions.memoryCachePolicy = self.memoryCachePolicy;
+    mutableOptions.storageCachePolicy = self.storageCachePolicy;
     mutableOptions.expirationAge = self.expirationAge;
     mutableOptions.userInfo = self.userInfo;
     

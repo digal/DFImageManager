@@ -147,4 +147,9 @@
     }
 }
 
+- (NSArray *)imageManagers
+{
+    return _managers;
+}
+
 @end

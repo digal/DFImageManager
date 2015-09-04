@@ -142,7 +142,7 @@ static inline void DFDispatchAsync(dispatch_block_t block) {
     if (self = [super init]) {
         NSParameterAssert(configuration);
         _conf = [configuration copy];
-        _imageLoader = [[DFImageManagerImageLoader alloc] initWithFetcher:_conf.fetcher cache:_conf.cache processor:_conf.processor processingQueue:_conf.processingQueue];
+        _imageLoader = [[DFImageManagerImageLoader alloc] initWithFetcher:_conf.fetcher storageCache:_conf.storageCache cache:_conf.cache processor:_conf.processor processingQueue:_conf.processingQueue];
         _preheatingTasks = [NSMutableDictionary new];
         _executingImageTasks = [NSMutableSet new];
         _recursiveLock = [NSRecursiveLock new];

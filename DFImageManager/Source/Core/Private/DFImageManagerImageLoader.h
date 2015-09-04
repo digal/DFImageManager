@@ -24,6 +24,7 @@
 #import <Foundation/Foundation.h>
 
 @class DFImageRequest;
+@protocol DFImageRequestCaching;
 @protocol DFImageFetching;
 @protocol DFImageProcessing;
 @protocol DFImageCaching;
@@ -45,7 +46,11 @@ typedef void (^DFImageLoaderCompletionHandler)(UIImage *__nullable image, NSDict
  */
 @interface DFImageManagerImageLoader : NSObject
 
-- (nonnull instancetype)initWithFetcher:(nonnull id<DFImageFetching>)fetcher cache:(nullable id<DFImageCaching>)cache processor:(nullable id<DFImageProcessing>)processor processingQueue:(nullable NSOperationQueue *)processingQueue;
+- (nonnull instancetype)initWithFetcher:(nonnull id<DFImageFetching>)fetcher
+                           storageCache:(nullable id<DFImageRequestCaching>)storageCache
+                                  cache:(nullable id<DFImageCaching>)cache
+                              processor:(nullable id<DFImageProcessing>)processor
+                        processingQueue:(nullable NSOperationQueue *)processingQueue;
 
 - (nonnull DFImageManagerImageLoaderTask *)startTaskForRequest:(nonnull DFImageRequest *)request progressHandler:(nonnull DFImageLoaderProgressHandler)progressHandler completion:(nonnull DFImageLoaderCompletionHandler)completion;
 
