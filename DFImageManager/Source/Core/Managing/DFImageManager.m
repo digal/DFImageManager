@@ -140,9 +140,7 @@ static inline void DFDispatchAsync(dispatch_block_t block) {
 
 - (nonnull instancetype)initWithConfiguration:(nonnull DFImageManagerConfiguration *)configuration {
     if (self = [super init]) {
-        NSParameterAssert(configuration);
-        _conf = [configuration copy];
-        _imageLoader = [[DFImageManagerImageLoader alloc] initWithFetcher:_conf.fetcher storageCache:_conf.storageCache cache:_conf.cache processor:_conf.processor processingQueue:_conf.processingQueue];
+        [self setConfiguration:configuration];
         _preheatingTasks = [NSMutableDictionary new];
         _executingImageTasks = [NSMutableSet new];
         _recursiveLock = [NSRecursiveLock new];
@@ -152,6 +150,13 @@ static inline void DFDispatchAsync(dispatch_block_t block) {
 
 + (void)initialize {
     [self setSharedManager:[self createDefaultManager]];
+}
+
+- (void)setConfiguration:(DFImageManagerConfiguration * __nonnull)configuration
+{
+    NSParameterAssert(configuration);
+    _conf = configuration;
+    _imageLoader = [[DFImageManagerImageLoader alloc] initWithFetcher:_conf.fetcher storageCache:_conf.storageCache cache:_conf.cache processor:_conf.processor processingQueue:_conf.processingQueue];
 }
 
 #pragma mark <DFImageManaging>

@@ -49,7 +49,7 @@
 
 /*! A copy of the configuration object for this manager (read only). Changing mutable values within the configuration object has no effect on the current manager.
  */
-@property (nonnull, nonatomic, copy, readonly) DFImageManagerConfiguration *configuration;
+@property (nonnull, nonatomic, copy) DFImageManagerConfiguration *configuration;
 
 /*! The receivers name.
  */
