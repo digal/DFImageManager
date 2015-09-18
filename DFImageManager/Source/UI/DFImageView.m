@@ -45,7 +45,7 @@ static const NSTimeInterval _kMinimumAutoretryInterval = 8.f;
     [self _cancelFetching];
 }
 
-- (nonnull instancetype)initWithFrame:(CGRect)frame {
+- (instancetype)initWithFrame:(CGRect)frame {
     if (self = [super initWithFrame:frame]) {
         self.contentMode = UIViewContentModeScaleAspectFill;
         self.clipsToBounds = YES;
@@ -55,7 +55,7 @@ static const NSTimeInterval _kMinimumAutoretryInterval = 8.f;
     return self;
 }
 
-- (nonnull instancetype)initWithCoder:(NSCoder *)decoder {
+- (instancetype)initWithCoder:(NSCoder *)decoder {
     if (self = [super initWithCoder:decoder]) {
         [self _commonInit];
     }
