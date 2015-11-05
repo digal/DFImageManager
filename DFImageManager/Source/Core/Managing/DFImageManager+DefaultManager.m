@@ -85,9 +85,7 @@
 #if __has_include("DFImageManagerKit+PhotosKit.h")
     id<DFImageManaging> photosKitImageManager = ({
         DFPhotosKitImageFetcher *fetcher = [DFPhotosKitImageFetcher new];
-        
-        // We don't need image decompression, because PHImageManager does it for us.
-        [[DFImageManager alloc] initWithConfiguration:[DFImageManagerConfiguration configurationWithFetcher:fetcher processor:nil cache:cache]];
+        [[DFImageManager alloc] initWithConfiguration:[DFImageManagerConfiguration configurationWithFetcher:fetcher processor:processor cache:cache]];
     });
     [managers addObject:photosKitImageManager];
 #endif
@@ -95,9 +93,7 @@
 #if __has_include("DFImageManagerKit+AssetsLibrary.h")
     id<DFImageManaging> assetsLibraryImageManager = ({
         DFAssetsLibraryImageFetcher *fetcher = [DFAssetsLibraryImageFetcher new];
-        
-        // Disable image decompression because ALAssetsLibrary blocks main thread anyway.
-        DFImageManager *imageManager = [[DFImageManager alloc] initWithConfiguration:[DFImageManagerConfiguration configurationWithFetcher:fetcher processor:nil cache:cache]];
+        DFImageManager *imageManager = [[DFImageManager alloc] initWithConfiguration:[DFImageManagerConfiguration configurationWithFetcher:fetcher processor:processor cache:cache]];
         
         // Create proxy to support ALAsset class.
         DFProxyImageManager *proxy = [[DFProxyImageManager alloc] initWithImageManager:imageManager];
