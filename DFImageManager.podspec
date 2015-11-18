@@ -1,6 +1,6 @@
 Pod::Spec.new do |s|
     s.name         = "DFImageManager"
-    s.version      = "0.6.3"
+    s.version      = "0.6.4"
     s.summary      = "Advanced iOS framework for loading images. Zero config, yet immense customization and extensibility."
     s.homepage     = "https://github.com/kean/DFImageManager"
     s.license      = { :type => "MIT", :file => "LICENSE" }
@@ -8,7 +8,7 @@ Pod::Spec.new do |s|
     s.social_media_url   = "https://twitter.com/a_grebenyuk"
     s.platform     = :ios
     s.ios.deployment_target = "7.0"
-    s.source       = { :git => "https://github.com/kean/DFImageManager.git", :tag => s.version.to_s }
+    s.source       = { :git => "https://github.com/AddAloner/DFImageManager.git", :tag => s.version.to_s }
     s.requires_arc = true
     s.default_subspecs = "Core", "UI", "NSURLSession", "PhotosKit", "AssetsLibrary"
 
