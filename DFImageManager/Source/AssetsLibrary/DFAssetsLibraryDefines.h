@@ -36,6 +36,10 @@ typedef NS_ENUM(NSInteger, DFALAssetImageSize) {
     /*! An image that is appropriate for displaying full screen.
      */
     DFALAssetImageSizeFullscreen,
+
+    /*! An image that is appropriate for displaying full screen, and support GIF representation
+     */
+    DFALAssetImageSizeGifOrFullscreen,
     
     /*! The biggest, best representation available.
      */

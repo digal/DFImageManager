@@ -25,8 +25,10 @@
 #import "DFAssetsLibraryImageFetcher.h"
 #import "DFImageRequest.h"
 #import "DFImageRequestOptions.h"
+#import "UIImage+DFImageUtilities.h"
 #import <AssetsLibrary/AssetsLibrary.h>
 #import <UIKit/UIKit.h>
+#import <MobileCoreServices/MobileCoreServices.h>
 
 @interface _DFAssetsLibraryImageFetchOperation : NSOperation
 
@@ -239,6 +241,16 @@ static inline NSURL *_ALAssetURL(id resource) {
                 _image = [UIImage imageWithCGImage:[assetRepresentation fullScreenImage] scale:[UIScreen mainScreen].scale orientation:UIImageOrientationUp];
             }
                 break;
+            case DFALAssetImageSizeGifOrFullscreen: {
+                ALAssetRepresentation *gifRepresentation = [_asset representationForUTI:(NSString *)kUTTypeGIF];
+                if (gifRepresentation) {
+                    _image = [self _imageWithAssetRepresentation:gifRepresentation];
+                } else {
+                    ALAssetRepresentation *assetRepresentation = [_asset defaultRepresentation];
+                    _image = [UIImage imageWithCGImage:[assetRepresentation fullScreenImage] scale:[UIScreen mainScreen].scale orientation:UIImageOrientationUp];
+                }
+            }
+                break;
             case DFALAssetImageSizeFullsize:
                 _image = [self _fullResolutionAdjustedImage];
                 break;
@@ -249,6 +261,19 @@ static inline NSURL *_ALAssetURL(id resource) {
         _image = [self _fullResolutionUnadjustedImage];
     }
     [self finish];
+}
+
+- (UIImage *)_imageWithAssetRepresentation:(ALAssetRepresentation *)rep {
+    Byte *buffer = (Byte*)malloc((unsigned long)rep.size);
+    
+    NSError *error;
+    NSUInteger buffered = [rep getBytes:buffer fromOffset:0.0 length:(NSUInteger)rep.size error:&error];
+    if (error) {
+        return nil;
+    }
+    
+    NSData *data = [NSData dataWithBytesNoCopy:buffer length:buffered freeWhenDone:YES];
+    return [UIImage df_decodedImageWithData:data];
 }
 
 - (UIImage *)_fullResolutionUnadjustedImage {
