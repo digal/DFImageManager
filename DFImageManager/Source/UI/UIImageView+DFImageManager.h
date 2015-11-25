@@ -47,4 +47,8 @@
  */
 - (nullable DFImageTask *)df_setImageWithRequest:(nullable DFImageRequest *)request;
 
+/*! Reload image if task failed
+ */
+- (void)df_reloadImageIfNeeded;
+
 @end
