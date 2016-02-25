@@ -59,7 +59,7 @@
 }
 
 + (UIImage *)df_decompressedImage:(UIImage *)image targetSize:(CGSize)targetSize contentMode:(DFImageContentMode)contentMode {
-    CGSize bitmapSize = CGSizeMake(CGImageGetWidth(image.CGImage), CGImageGetHeight(image.CGImage));
+    CGSize bitmapSize = [image df_bitmapSize];
     CGFloat scaleWidth = targetSize.width / bitmapSize.width;
     CGFloat scaleHeight = targetSize.height / bitmapSize.height;
     CGFloat scale = contentMode == DFImageContentModeAspectFill ? MAX(scaleWidth, scaleHeight) : MIN(scaleWidth, scaleHeight);
@@ -180,6 +180,26 @@
     UIImage *processedImage = UIGraphicsGetImageFromCurrentImageContext();
     UIGraphicsEndImageContext();
     return processedImage;
+}
+
+- (CGSize)df_bitmapSize {
+    CGImageRef imgRef = self.CGImage;
+    CGSize srcSize = CGSizeMake(CGImageGetWidth(imgRef), CGImageGetHeight(imgRef));
+    
+    UIImageOrientation orient = self.imageOrientation;
+    switch (orient) {
+        case UIImageOrientationLeft:
+        case UIImageOrientationRight:
+        case UIImageOrientationLeftMirrored:
+        case UIImageOrientationRightMirrored:
+            srcSize = CGSizeMake(srcSize.height, srcSize.width);
+            break;
+        default:
+            // NOP
+            break;
+    }
+    
+    return srcSize;
 }
 
 @end

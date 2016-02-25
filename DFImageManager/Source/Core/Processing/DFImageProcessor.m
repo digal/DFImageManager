@@ -59,7 +59,7 @@ NSString *DFImageProcessingCornerRadiusKey = @"DFImageProcessingCornerRadiusKey"
 }
 
 + (nullable UIImage *)_croppedImage:(nonnull UIImage *)image aspectFillPixelSize:(CGSize)targetSize {
-    CGSize imageSize = CGSizeMake(CGImageGetWidth(image.CGImage), CGImageGetHeight(image.CGImage));
+    CGSize imageSize = [image df_bitmapSize];
     CGFloat scale = ({
         CGFloat scaleWidth = targetSize.width / imageSize.width;
         CGFloat scaleHeight = targetSize.height / imageSize.height;

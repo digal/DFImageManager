@@ -53,4 +53,8 @@
  */
 + (nullable UIImage *)df_imageWithImage:(nullable UIImage *)image cornerRadius:(CGFloat)cornerRadius;
 
+/*! Returns correct image bitmap size with orientation
+ */
+- (CGSize)df_bitmapSize;
+
 @end
