@@ -74,7 +74,11 @@
         return image;
     }
     CGImageRef imageRef = image.CGImage;
-    CGSize imageSize = CGSizeMake(CGImageGetWidth(imageRef) * scale, CGImageGetHeight(imageRef) * scale);
+    CGSize imageSize = CGSizeMake(CGImageGetWidth(imageRef), CGImageGetHeight(imageRef));
+    if (scale < 1.f) {
+        imageSize = CGSizeMake(imageSize.width * scale, imageSize.height * scale);
+    }
+    
     CGRect imageRect = (CGRect){.origin = CGPointZero, .size = imageSize};
     
     CGColorSpaceRef colorSpace = CGColorSpaceCreateDeviceRGB();
