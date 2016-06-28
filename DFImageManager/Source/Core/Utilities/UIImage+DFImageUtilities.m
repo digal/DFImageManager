@@ -46,7 +46,7 @@
 #endif
     
 #if DF_IMAGE_MANAGER_WEBP_AVAILABLE
-    UIImage *webpImage = [UIImage df_imageWithWebPData:data];
+    UIImage *webpImage = [UIImage df_imageWithWebPData:data scale:[UIScreen mainScreen].scale];
     if (webpImage) {
         return webpImage;
     }

@@ -25,5 +25,6 @@
 @interface UIImage (DFImageManagerWebP)
 
 + (UIImage *)df_imageWithWebPData:(NSData *)data;
++ (UIImage *)df_imageWithWebPData:(NSData *)data scale:(CGFloat)scale;
 
 @end

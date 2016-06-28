@@ -29,7 +29,7 @@ static void FreeImageData(void *info, const void *data, size_t size) {
     free((void *)data);
 }
 
-+ (UIImage *)df_imageWithWebPData:(NSData *)data {
++ (UIImage *)df_imageWithWebPData:(NSData *)data scale:(CGFloat)scale {
     WebPDecoderConfig config;
     if (!WebPInitDecoderConfig(&config)) {
         return nil;
@@ -61,10 +61,14 @@ static void FreeImageData(void *info, const void *data, size_t size) {
     CGColorSpaceRelease(colorSpaceRef);
     CGDataProviderRelease(provider);
     
-    UIImage *image = [[UIImage alloc] initWithCGImage:imageRef];
+    UIImage *image = [[UIImage alloc] initWithCGImage:imageRef scale:scale orientation:UIImageOrientationUp];
     CGImageRelease(imageRef);
     
     return image;
+}
+
++ (UIImage *)df_imageWithWebPData:(NSData *)data {
+    return [self df_imageWithWebPData:data scale:1];
 }
 
 @end
