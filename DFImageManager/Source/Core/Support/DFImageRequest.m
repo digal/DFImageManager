@@ -23,19 +23,11 @@
 #import "DFImageRequest.h"
 #import "DFImageRequestOptions.h"
 
-static NSString* const DFDefaultURLScheme = @"http:";
-
 @implementation DFImageRequest
 
 - (nonnull instancetype)initWithResource:(nonnull id)resource targetSize:(CGSize)targetSize contentMode:(DFImageContentMode)contentMode options:(nullable DFImageRequestOptions *)options {
     if (self = [super init]) {
-        // hotfix for links without prefix
-        if ([resource isKindOfClass:[NSURL class]] && (((NSURL *)resource).scheme == nil)) {
-            _resource =
-            [NSURL URLWithString:[DFDefaultURLScheme stringByAppendingString:((NSURL *)resource).absoluteString]];
-        } else {
-            _resource = resource;
-        }
+        _resource = resource;
         _targetSize = targetSize;
         _contentMode = contentMode;
         _options = options ?: [DFImageRequestOptions new];
