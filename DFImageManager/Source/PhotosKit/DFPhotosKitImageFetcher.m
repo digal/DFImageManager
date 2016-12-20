@@ -140,7 +140,7 @@ static inline PHImageContentMode _PHContentModeForDFContentMode(DFImageContentMo
     requestOptions.progressHandler = ^(double progress, NSError *error, BOOL *stop, NSDictionary *info){
         if (progressHandler) {
             int64_t totalUnitCount = 1000;
-            progressHandler((int64_t)progress * totalUnitCount, totalUnitCount);
+            progressHandler((int64_t)(progress * totalUnitCount), totalUnitCount);
         }
     };
     
