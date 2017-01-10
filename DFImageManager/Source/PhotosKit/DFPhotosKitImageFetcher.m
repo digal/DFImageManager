@@ -111,6 +111,9 @@ static inline PHImageContentMode _PHContentModeForDFContentMode(DFImageContentMo
         if (![request1.resource isEqual:request2.resource]) {
             return NO;
         }
+        if (![[request1.resource modificationDate] isEqual:[request2.resource modificationDate]]) {
+            return NO;
+        }
     } else if (![_PHAssetLocalIdentifier(request1.resource) isEqualToString:_PHAssetLocalIdentifier(request2.resource)]) {
         return NO;
     }
